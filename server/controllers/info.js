@@ -1,34 +1,36 @@
 import director from "../models/director.js";
 import company from "../models/company.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const saltRounds = 10;
-let directorID ;
-
+let directorID;
 
 export const getDirector = async (req, res) => {
   try {
-     director.findOne({ email: req.body.email }, (err, foundUser) => {
+    director.findOne({ email: req.body.email }, (err, foundUser) => {
       if (err) {
         console.log(err);
       } else {
         if (foundUser) {
-          bcrypt.compare(req.body.password,foundUser.password,(error, result) => {
+          bcrypt.compare(
+            req.body.password,
+            foundUser.password,
+            (error, result) => {
               if (result) {
                 directorID = foundUser.id;
-                console.log(directorID);
 
                 res.status(200).json(foundUser);
-              }
-              else{
-                console.log("User not found! Please check the email or the password");
-                res.status(404).json({ message: 'Password Incorrect' });
+              } else {
+                console.log(
+                  "User not found! Please check the email or the password"
+                );
+                res.status(404).json({ message: "Password Incorrect" });
               }
             }
           );
-        }
-        else{
-          res.status(404).json({ message: 'User not Found!'});
+        } else {
+          res.status(404).json({ message: "User not Found!" });
         }
       }
     });
@@ -55,14 +57,12 @@ export const createDirector = async (req, res) => {
   });
 };
 
-
 export const getCompnay = async (req, res) => {
   try {
     company.find({ userID: directorID }, (err, foundCompanies) => {
       if (err) {
         console.log(err);
       } else {
-        // console.log(foundCompanies);
         res.status(200).json(foundCompanies);
       }
     });
@@ -71,7 +71,6 @@ export const getCompnay = async (req, res) => {
   }
 };
 export const createCompany = async (req, res) => {
-  // const post = req.body;
   const { companyName, companyLogo, linkedinURL, facebookURL } = req.body;
 
   const newCompany = new company({
@@ -93,33 +92,29 @@ function isEmpty(obj) {
   return Object.keys(obj).length === 0;
 }
 
-export const updateCompany = async (req,res)=>{
-
+export const updateCompany = async (req, res) => {
   console.log(req.body);
-  if(!isEmpty(req.body)){
-  company.updateOne({_id :req.body._id},req.body,(err)=>{
-    if(err){
-      console.log(err);
-      res.status(409).json({ message: err });
-    }
-    else{
-      console.log("Succesfully Updated.");
-      res.status(201).json({message:'Company Updated!'});
-    } 
-  });
-}
-}
+  if (!isEmpty(req.body)) {
+    company.updateOne({ _id: req.body._id }, req.body, (err) => {
+      if (err) {
+        console.log(err);
+        res.status(409).json({ message: err });
+      } else {
+        console.log("Succesfully Updated.");
+        res.status(201).json({ message: "Company Updated!" });
+      }
+    });
+  }
+};
 
-export const deleteCompany = async (req,res)=>{
-  
-  company.deleteOne(req.body,(err)=>{
-    if(err){
+export const deleteCompany = async (req, res) => {
+  company.deleteOne(req.body, (err) => {
+    if (err) {
       console.log(err);
       res.status(409).json({ message: err });
+    } else {
+      console.log("Deletion Successful!");
+      res.status(200).json({ message: "Deletion Successful!" });
     }
-    else{
-      console.log("Deletion Successful!")
-      res.status(200).json({message:'Deletion Successful!'});
-    }
-  })
-}
+  });
+};

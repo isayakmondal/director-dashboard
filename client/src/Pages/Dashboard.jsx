@@ -11,8 +11,6 @@ const Dashboard = ({ login, setLogin }) => {
     email: "",
     directorID: "",
   });
-  const [clickCreate, setClickCreate] = useState(false);
-  // const [isUpdate, setIsUpdate] = useState(false);
   const [someState, setSomeState] = useState(false);
   const history = useHistory();
   const location = useLocation();
@@ -24,9 +22,10 @@ const Dashboard = ({ login, setLogin }) => {
       axios
         .get("http://localhost:5000/getCompany")
         .then((response) => {
-          console.log(response.data);
+
+          // console.log(response.data);
           setCompanyData(response.data);
-          console.log(location.state.email);
+  
           setDirectorData({
             email: location.state.email,
             directorID: location.state.directorID,
@@ -42,9 +41,9 @@ const Dashboard = ({ login, setLogin }) => {
     axios
       .get("http://localhost:5000/getCompany")
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setCompanyData(response.data);
-        console.log(location.state.email);
+        // console.log(location.state.email);
         setDirectorData({
           email: location.state.email,
           directorID: location.state.directorID,
@@ -60,23 +59,19 @@ const Dashboard = ({ login, setLogin }) => {
     setLogin(!login);
   };
 
-  const onClickCreate = () => {
-    setClickCreate(true);
-  };
-
   return (
     <div>
       <h1>Director Dashboard</h1>
       <h4>User Logged in : {directorData.email}</h4>
       <button onClick={handleClick}>{login ? "Logout" : "Login"}</button>
-     
+
       <Create
         directorID={directorData.directorID}
         setSomeState={setSomeState}
         someState={someState}
         updateState={updateState}
       />
-     
+
       <table className="center">
         <tr>
           <th>Company Name</th>
@@ -85,21 +80,21 @@ const Dashboard = ({ login, setLogin }) => {
           <th>Linkedin URL</th>
           <th>Options</th>
         </tr>
-      
-      {companyData.map((currentCompany) => {
-        return (
-          <Company
-            name={currentCompany.companyName}
-            logo={currentCompany.companyLogo}
-            facebookURL={currentCompany.facebookURL}
-            linkedinURL={currentCompany.linkedinURL}
-            id={currentCompany._id}
-            key={currentCompany._id}
-            setSomeState={setSomeState}
-            someState={someState}
-          />
-        );
-      })}
+
+        {companyData.map((currentCompany) => {
+          return (
+            <Company
+              name={currentCompany.companyName}
+              logo={currentCompany.companyLogo}
+              facebookURL={currentCompany.facebookURL}
+              linkedinURL={currentCompany.linkedinURL}
+              id={currentCompany._id}
+              key={currentCompany._id}
+              setSomeState={setSomeState}
+              someState={someState}
+            />
+          );
+        })}
       </table>
     </div>
   );
