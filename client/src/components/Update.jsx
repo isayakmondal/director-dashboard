@@ -6,13 +6,22 @@ import FileBase64 from "react-file-base64";
 
 const Update = (props) => {
   const [companyDetails, setCompanyDetails] = useState({});
+  const [isRequired,setIsRequired] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCompanyDetails({ ...companyDetails, _id: props.id, [name]: value });
+
+    if(value.length){
+      
+      setIsRequired(false);
+      setCompanyDetails({ ...companyDetails, _id: props.id, [name]: value });
+    }
+    else{setIsRequired(true)}
+
+   
   };
 
-  const handleClick = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     console.log(companyDetails);
@@ -32,24 +41,27 @@ const Update = (props) => {
     <Popup trigger={<button>Update</button>} position="left center">
       <div>
         <h2>Update Company</h2>
-        <form action="">
+        <form onSubmit={handleSubmit} >
           <input
             type="text"
             name="companyName"
             onChange={handleChange}
             placeholder="Compnay Name"
+            required={isRequired}
           />
           <input
             type="text"
             name="facebookURL"
             onChange={handleChange}
             placeholder="Facebook URL"
+            required={isRequired}
           />
           <input
             type="text"
             name="linkedinURL"
             onChange={handleChange}
             placeholder="Linkedin URL"
+            required={isRequired}
           />
           <p>Upload Company Logo:</p>
           <FileBase64
@@ -58,9 +70,9 @@ const Update = (props) => {
             onDone={({ base64 }) =>
               setCompanyDetails({ ...companyDetails, companyLogo: base64 })
             }
-            required
+            
           />
-          <button onClick={handleClick}>Update</button>
+          <button >Update</button>
         </form>
       </div>
     </Popup>

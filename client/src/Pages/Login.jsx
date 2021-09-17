@@ -21,7 +21,7 @@ const Login = ({ login, setLogin }) => {
     setLoginDetails({ ...loginDetails, [name]: value });
   };
 
-  const handleClick = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setLoginDetails(userModel);
     axios
@@ -43,7 +43,7 @@ const Login = ({ login, setLogin }) => {
   return (
     <div>
       <h1>Login</h1>
-      <form onSubmit={handleClick}>
+      <form onSubmit={handleSubmit}>
         <input
           type="email"
           name="email"

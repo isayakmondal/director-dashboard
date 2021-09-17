@@ -14,9 +14,16 @@ const Create = (props) => {
   };
 
   const [companyDetails, setcompanyDetails] = useState(companyModel);
+  const [isRequired,setIsRequired] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    if(name!=="companyName"){
+    if(value.length){setIsRequired(false)}
+    else{setIsRequired(true)}
+    }
+
     setcompanyDetails({
       ...companyDetails,
       userID: props.directorID,
@@ -24,7 +31,7 @@ const Create = (props) => {
     });
   };
 
-  const handleClick = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     console.log(companyDetails);
@@ -38,13 +45,14 @@ const Create = (props) => {
         console.log(error);
       });
     setcompanyDetails(companyModel);
+    setIsRequired(true);
   };
 
   return (
     <Popup trigger={<button>Create</button>} position="right center">
       <div>
         <h2>Add New Company</h2>
-        <form onSubmit={handleClick}>
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="companyName"
@@ -59,7 +67,7 @@ const Create = (props) => {
             onChange={handleChange}
             value={companyDetails.facebookURL}
             placeholder="Facebook URL"
-            required
+            required={isRequired}
           />
           <input
             type="text"
@@ -67,7 +75,7 @@ const Create = (props) => {
             onChange={handleChange}
             value={companyDetails.linkedinURL}
             placeholder="Linkedin URL"
-            required
+            required={isRequired}
           />
           <p>Upload Company Logo:</p>
           <FileBase64
