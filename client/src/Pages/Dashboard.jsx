@@ -56,6 +56,7 @@ const Dashboard = ({ login, setLogin }) => {
 
   const handleClick = (e) => {
     e.preventDefault();
+    localStorage.removeItem("loginDetails");
     setLogin(!login);
   };
 
