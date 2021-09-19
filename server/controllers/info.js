@@ -25,7 +25,7 @@ export const getDirector = async (req, res) => {
                   { id: foundUser.id },
                   process.env.TOKEN_SECRET,
                   {
-                    expiresIn: 300,
+                    expiresIn: 3600,
                   }
                 );
                 // res.header('auth-token',token).send(token);
