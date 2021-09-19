@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 import Update from "./Update";
 import "../App.css";
 
@@ -8,9 +8,13 @@ const Company = (props) => {
 
   const handleClick = () => {
     axios
-      .post("http://localhost:5000/deleteCompany", { _id: props.id })
+      .post("http://localhost:5000/deleteCompany", { _id: props.id },{
+        headers:{
+          "x-access-token": localStorage.getItem("token")
+        },
+      })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         props.setSomeState(!props.someState);
       })
       .catch((error) => {
@@ -20,6 +24,7 @@ const Company = (props) => {
 
   return (
     <>
+    
       <tr>
         <td>{props.name}</td>
         <td>
@@ -53,6 +58,7 @@ const Company = (props) => {
           <button onClick={handleClick}>Delete</button>
         </td>
       </tr>
+      
     </>
   );
 };

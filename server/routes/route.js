@@ -7,13 +7,14 @@ import {
   updateCompany,
   deleteCompany,
 } from "../controllers/info.js";
+import { verifyJWT } from "../controllers/verifyToken.js";
 
 const router = express.Router();
 
-router.get("/getCompany", getCompnay);
-router.post("/createCompany", createCompany);
-router.post("/updateCompany", updateCompany);
-router.post("/deleteCompany", deleteCompany);
+router.get("/getCompany", verifyJWT, getCompnay);
+router.post("/createCompany", verifyJWT, createCompany);
+router.post("/updateCompany", verifyJWT, updateCompany);
+router.post("/deleteCompany", verifyJWT, deleteCompany);
 
 router.post("/login", getDirector);
 router.post("/createDirector", createDirector);

@@ -1,8 +1,7 @@
 import "./App.css";
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
-import Header from "./components/Header";
 import { useState } from "react";
 
 function App() {

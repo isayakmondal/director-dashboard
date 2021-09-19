@@ -20,12 +20,15 @@ const Dashboard = ({ login, setLogin }) => {
       history.push("/login");
     } else {
       axios
-        .get("http://localhost:5000/getCompany")
+        .get("http://localhost:5000/getCompany", {
+          headers: {
+            "x-access-token": localStorage.getItem("token"),
+          },
+        })
         .then((response) => {
-
           // console.log(response.data);
           setCompanyData(response.data);
-  
+
           setDirectorData({
             email: location.state.email,
             directorID: location.state.directorID,
@@ -35,28 +38,12 @@ const Dashboard = ({ login, setLogin }) => {
           console.log(error);
         });
     }
-  }, [login, history, someState]);
-
-  const updateState = () => {
-    axios
-      .get("http://localhost:5000/getCompany")
-      .then((response) => {
-        // console.log(response.data);
-        setCompanyData(response.data);
-        // console.log(location.state.email);
-        setDirectorData({
-          email: location.state.email,
-          directorID: location.state.directorID,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  }, [login, history, someState, location.state.email, location.state.directorID]);
 
   const handleClick = (e) => {
     e.preventDefault();
-    localStorage.removeItem("loginDetails");
+    sessionStorage.removeItem("loginDetails");
+    localStorage.removeItem("token");
     setLogin(!login);
   };
 
@@ -70,10 +57,10 @@ const Dashboard = ({ login, setLogin }) => {
         directorID={directorData.directorID}
         setSomeState={setSomeState}
         someState={someState}
-        updateState={updateState}
       />
 
       <table className="center">
+      <tbody>
         <tr>
           <th>Company Name</th>
           <th>Company Logo</th>
@@ -81,6 +68,7 @@ const Dashboard = ({ login, setLogin }) => {
           <th>Linkedin URL</th>
           <th>Options</th>
         </tr>
+       
 
         {companyData.map((currentCompany) => {
           return (
@@ -96,6 +84,7 @@ const Dashboard = ({ login, setLogin }) => {
             />
           );
         })}
+         </tbody>
       </table>
     </div>
   );

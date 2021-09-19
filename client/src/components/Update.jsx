@@ -6,29 +6,31 @@ import FileBase64 from "react-file-base64";
 
 const Update = (props) => {
   const [companyDetails, setCompanyDetails] = useState({});
-  const [isRequired,setIsRequired] = useState(true);
+  const [isRequired, setIsRequired] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    if(value.length){
-      
+    if (value.length) {
       setIsRequired(false);
       setCompanyDetails({ ...companyDetails, _id: props.id, [name]: value });
+    } else {
+      setIsRequired(true);
     }
-    else{setIsRequired(true)}
-
-   
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(companyDetails);
+    // console.log(companyDetails);
     axios
-      .post("http://localhost:5000/updateCompany", companyDetails)
+      .post("http://localhost:5000/updateCompany", companyDetails, {
+        headers: {
+          "x-access-token": localStorage.getItem("token"),
+        },
+      })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
 
         props.setSomeState(!props.someState);
       })
@@ -41,7 +43,7 @@ const Update = (props) => {
     <Popup trigger={<button>Update</button>} position="left center">
       <div>
         <h2>Update Company</h2>
-        <form onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="companyName"
@@ -70,9 +72,9 @@ const Update = (props) => {
             onDone={({ base64 }) =>
               setCompanyDetails({ ...companyDetails, companyLogo: base64 })
             }
-            
+            required={isRequired}
           />
-          <button >Update</button>
+          <button>Update</button>
         </form>
       </div>
     </Popup>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import FileBase64 from "react-file-base64";
@@ -34,11 +34,15 @@ const Create = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(companyDetails);
+    // console.log(companyDetails);
     axios
-      .post("http://localhost:5000/createCompany", companyDetails)
+      .post("http://localhost:5000/createCompany", companyDetails,{
+        headers:{
+          "x-access-token": localStorage.getItem("token")
+        },
+      })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         props.setSomeState(!props.someState);
       })
       .catch((error) => {

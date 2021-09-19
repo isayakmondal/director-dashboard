@@ -17,18 +17,19 @@ const Login = ({ login, setLogin }) => {
   const [loginText, setLoginText] = useState("");
 
   useEffect(() => {
-    if (localStorage.getItem('loginDetails')!==null) {
+    if (sessionStorage.getItem('loginDetails')!==null) {
 
       // console.log(localStorage.getItem('loginDetails'));
       
       axios
-      .post("http://localhost:5000/login",JSON.parse(localStorage.getItem('loginDetails')))
+      .post("http://localhost:5000/login",JSON.parse(sessionStorage.getItem('loginDetails')))
       .then((response) => {
         // console.log(response);
         setLogin(true);
+        localStorage.setItem("token",response.data.token);
         history.push("/", {
-          email: response.data.email,
-          directorID: response.data._id,
+          email: response.data.result.email,
+          directorID: response.data.result._id,
         });
       })
       .catch((error) => {
@@ -39,7 +40,7 @@ const Login = ({ login, setLogin }) => {
     else{
       setLogin(false);
     }
-  }, []);
+  }, [history, setLogin]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,14 +54,16 @@ const Login = ({ login, setLogin }) => {
       .post("http://localhost:5000/login", loginDetails)
       .then((response) => {
         // console.log(response);
-        localStorage.setItem(
+        sessionStorage.setItem(
           "loginDetails",
-          JSON.stringify({ email: response.data.email, password: loginDetails.password})
+          JSON.stringify({ email: response.data.result.email, password: loginDetails.password})
         );
+        localStorage.setItem("token",response.data.token);
+
         setLogin(!login);
         history.push("/", {
-          email: response.data.email,
-          directorID: response.data._id,
+          email: response.data.result.email,
+          directorID: response.data.result._id,
         });
       })
       .catch((error) => {
