@@ -38,7 +38,7 @@ const Dashboard = ({ login, setLogin }) => {
           console.log(error);
         });
     }
-  }, [login, history, someState, location.state.email, location.state.directorID]);
+  }, [login, history, someState]);
 
   const handleClick = (e) => {
     e.preventDefault();
