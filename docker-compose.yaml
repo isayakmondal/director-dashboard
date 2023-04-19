@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  server:
+    build: ./server
+    env_file:
+      - ./server/.env
+    ports:
+      - "5000:5000"
+    restart: always
+
+  client:
+    build: ./client
+    ports:
+      - "3000:3000"
+    restart: always
+    depends_on:
+      - server
