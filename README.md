@@ -18,4 +18,8 @@ Details such as email, [linkedin](https://www.linkedin.com) profile and logo of 
 https://user-images.githubusercontent.com/51121313/232805929-7ff7e8af-f14c-4968-a64b-9847165d3fd0.mp4
 
 # Future Plans
-- [ ] **Containerization of the app into separate containers and running them inside K8s clusters in the cloud.**
+- [x] **Containerization of the app into separate containers**
+- [ ] **Creating a CI Pipeline using Jenkins**
+- [ ] **Creating CD Pipeline uisng ArgoCD**
+- [ ] **Running them inside K8s clusters in the cloud**
+
