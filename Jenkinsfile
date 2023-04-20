@@ -6,7 +6,7 @@ pipeline {
         DOCKER_HUB_REGISTRY = 'docker.io'
         CLIENT_IMAGE_NAME = 'vampzzz/director-dashboard-client'
         SERVER_IMAGE_NAME = 'vampzzz/director-dashboard-server'
-        VERSION = "${BUILD_NUMBER}"
+        VERSION = "v${BUILD_NUMBER}"
     }
     agent any
 
@@ -18,7 +18,7 @@ pipeline {
         stage('Build server image') {
             steps {
                 dir('server') {
-                    sh "docker build -t ${SERVER_IMAGE_NAME}:v${VERSION} ."
+                    sh "docker build -t ${SERVER_IMAGE_NAME}:${VERSION} ."
                 }
             }
         }
@@ -26,7 +26,7 @@ pipeline {
         stage('Build client image') {
             steps {
                 dir('client') {
-                    sh "docker build -t ${CLIENT_IMAGE_NAME}:v${VERSION} ."
+                    sh "docker build -t ${CLIENT_IMAGE_NAME}:${VERSION} ."
                 }
             }
         }
@@ -36,9 +36,14 @@ pipeline {
         stage('Push images to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'my-docker-hub-creds', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-                    sh "docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD} ${DOCKER_HUB_REGISTRY}"
-                    sh "docker push ${CLIENT_IMAGE_NAME}:${VERSION}"
-                    sh "docker push ${SERVER_IMAGE_NAME}:${VERSION}"
+                    // sh "docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD} ${DOCKER_HUB_REGISTRY}"
+                    // sh "docker push ${CLIENT_IMAGE_NAME}:${VERSION}"
+                    // sh "docker push ${SERVER_IMAGE_NAME}:${VERSION}"
+                    sh '''
+                     echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin ${DOCKER_HUB_REGISTRY}
+                     docker push ${CLIENT_IMAGE_NAME}:${VERSION}
+                     docker push ${SERVER_IMAGE_NAME}:${VERSION}
+                    '''
                 }
             }
         }
