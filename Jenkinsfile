@@ -6,20 +6,23 @@ pipeline {
         DOCKER_HUB_REGISTRY = 'docker.io'
         CLIENT_IMAGE_NAME = 'vampzzz/director-dashboard-client'
         SERVER_IMAGE_NAME = 'vampzzz/director-dashboard-server'
-        VERSION = ${BUILD_NUMBER}
+        VERSION = "${BUILD_NUMBER}"
     }
     agent any
 
-     stage('Build server image') {
+   
+	
+    
+    stages {
+
+        stage('Build server image') {
             steps {
                 dir('server') {
                     sh "docker build -t ${SERVER_IMAGE_NAME}:${VERSION} ."
                 }
             }
         }
-	
-    
-    stages {
+
         stage('Build client image') {
             steps {
                 dir('client') {
