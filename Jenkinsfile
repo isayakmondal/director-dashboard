@@ -1,8 +1,8 @@
 pipeline {
     environment {
         // Set environment variables here
-        DOCKER_HUB_USERNAME = credentials('DOCKER_HUB_USERNAME')
-        DOCKER_HUB_PASSWORD = credentials('DOCKER_HUB_PASSWORD')
+        DOCKER_HUB_USERNAME = credentials('my-docker-hub-creds')
+        DOCKER_HUB_PASSWORD = credentials('my-docker-hub-creds')
         DOCKER_HUB_REGISTRY = 'docker.io'
         CLIENT_IMAGE_NAME = 'vampzzz/director-dashboard-client'
         SERVER_IMAGE_NAME = 'vampzzz/director-dashboard-server'
