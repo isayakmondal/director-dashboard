@@ -37,7 +37,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-token', variable: 'DOCKERHUB_TOKEN')]) {
 
                     sh '''
-                     docker login --username $DOCKER_HUB_USERNAME --password-stdin <<< \$DOCKERHUB_TOKEN
+                     docker login --username $DOCKER_HUB_USERNAME -p $DOCKERHUB_TOKEN
                      docker push ${CLIENT_IMAGE_NAME}:${VERSION}
                      docker push ${SERVER_IMAGE_NAME}:${VERSION}
                     '''
