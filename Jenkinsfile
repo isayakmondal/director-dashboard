@@ -1,8 +1,7 @@
 pipeline {
     environment {
         // Set environment variables here
-        DOCKER_HUB_USERNAME = credentials('my-docker-hub-creds')
-        DOCKER_HUB_PASSWORD = credentials('my-docker-hub-creds')
+        DOCKER_HUB_USERNAME = 'vampzzz'
         DOCKER_HUB_REGISTRY = 'docker.io'
         CLIENT_IMAGE_NAME = 'vampzzz/director-dashboard-client'
         SERVER_IMAGE_NAME = 'vampzzz/director-dashboard-server'
@@ -35,12 +34,10 @@ pipeline {
         
         stage('Push images to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'my-docker-hub-creds', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-                    // sh "docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD} ${DOCKER_HUB_REGISTRY}"
-                    // sh "docker push ${CLIENT_IMAGE_NAME}:${VERSION}"
-                    // sh "docker push ${SERVER_IMAGE_NAME}:${VERSION}"
+                withCredentials([string(credentialsId: 'docker-hub-token', variable: 'DOCKERHUB_TOKEN')]) {
+
                     sh '''
-                     echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin ${DOCKER_HUB_REGISTRY}
+                     docker login --username $DOCKER_HUB_USERNAME -p $DOCKERHUB_TOKEN
                      docker push ${CLIENT_IMAGE_NAME}:${VERSION}
                      docker push ${SERVER_IMAGE_NAME}:${VERSION}
                     '''
