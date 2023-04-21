@@ -2,13 +2,14 @@ import axios from "axios";
 import React from "react";
 import Update from "./Update";
 import "../App.css";
+import { API_URL} from "./env.js";
 
 const Company = (props) => {
   
 
   const handleClick = () => {
     axios
-      .post("http://localhost:5000/deleteCompany", { _id: props.id },{
+      .post(`${API_URL}/deleteCompany` || "http://localhost:5000/deleteCompany", { _id: props.id },{
         headers:{
           "x-access-token": localStorage.getItem("token")
         },

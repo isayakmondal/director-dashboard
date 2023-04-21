@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import FileBase64 from "react-file-base64";
+import { API_URL} from "./env.js";
 
 const Create = (props) => {
   const companyModel = {
@@ -36,7 +37,7 @@ const Create = (props) => {
 
     // console.log(companyDetails);
     axios
-      .post("http://localhost:5000/createCompany", companyDetails,{
+      .post(`${API_URL}/createCompany` || "http://localhost:5000/createCompany", companyDetails,{
         headers:{
           "x-access-token": localStorage.getItem("token")
         },

@@ -4,6 +4,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import Company from "../components/Company";
 import Create from "../components/Create";
 import "../App.css";
+import { API_URL} from "./env.js";
 
 const Dashboard = ({ login, setLogin }) => {
   const [companyData, setCompanyData] = useState([]);
@@ -20,7 +21,7 @@ const Dashboard = ({ login, setLogin }) => {
       history.push("/login");
     } else {
       axios
-        .get("http://localhost:5000/getCompany", {
+        .get(`${API_URL}/getCompany` || "http://localhost:5000/getCompany", {
           headers: {
             "x-access-token": localStorage.getItem("token"),
           },

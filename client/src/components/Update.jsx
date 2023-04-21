@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import FileBase64 from "react-file-base64";
+import { API_URL} from "./env.js";
 
 const Update = (props) => {
   const [companyDetails, setCompanyDetails] = useState({});
@@ -24,7 +25,7 @@ const Update = (props) => {
 
     // console.log(companyDetails);
     axios
-      .post("http://localhost:5000/updateCompany", companyDetails, {
+      .post(`${API_URL}/updateCompany` || "http://localhost:5000/updateCompany", companyDetails, {
         headers: {
           "x-access-token": localStorage.getItem("token"),
         },

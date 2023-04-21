@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import "../Login.css";
+import { API_URL} from "./env.js";
 
 const Login = ({ login, setLogin }) => {
   const userModel = {
@@ -22,7 +23,7 @@ const Login = ({ login, setLogin }) => {
       // console.log(localStorage.getItem('loginDetails'));
       
       axios
-      .post("http://localhost:5000/login",JSON.parse(sessionStorage.getItem('loginDetails')))
+      .post(`${API_URL}/login` || "http://localhost:5000/login",JSON.parse(sessionStorage.getItem('loginDetails')))
       .then((response) => {
         // console.log(response);
         setLogin(true);
@@ -51,7 +52,7 @@ const Login = ({ login, setLogin }) => {
     e.preventDefault();
     setLoginDetails(userModel);
     axios
-      .post("http://localhost:5000/login", loginDetails)
+      .post(`${API_URL}/login` || "http://localhost:5000/login", loginDetails)
       .then((response) => {
         // console.log(response);
         sessionStorage.setItem(
