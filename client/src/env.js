@@ -1,3 +1,2 @@
-const API_URL = undefined;
-
-export { API_URL};
+const API_URL = process.env.MY_API_URL ?? "http://localhost:5000";
+export { API_URL };
