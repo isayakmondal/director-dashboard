@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import "../Login.css";
-import { API_URL} from "./env.js";
+import { API_URL} from "../env.js";
 
 const Login = ({ login, setLogin }) => {
   const userModel = {

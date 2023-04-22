@@ -4,7 +4,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import Company from "../components/Company";
 import Create from "../components/Create";
 import "../App.css";
-import { API_URL} from "./env.js";
+import { API_URL} from "../env.js";
 
 const Dashboard = ({ login, setLogin }) => {
   const [companyData, setCompanyData] = useState([]);

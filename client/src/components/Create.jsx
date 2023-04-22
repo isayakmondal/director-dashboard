@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import FileBase64 from "react-file-base64";
-import { API_URL} from "./env.js";
+import { API_URL} from "../env.js";
 
 const Create = (props) => {
   const companyModel = {
