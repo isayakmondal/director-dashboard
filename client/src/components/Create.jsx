@@ -37,7 +37,7 @@ const Create = (props) => {
 
     // console.log(companyDetails);
     axios
-      .post(`${API_URL}/createCompany` || "http://localhost:5000/createCompany", companyDetails,{
+      .post(`${API_URL}/createCompany`, companyDetails,{
         headers:{
           "x-access-token": localStorage.getItem("token")
         },

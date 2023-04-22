@@ -23,7 +23,7 @@ const Login = ({ login, setLogin }) => {
       // console.log(localStorage.getItem('loginDetails'));
       
       axios
-      .post(`${API_URL}/login` || "http://localhost:5000/login",JSON.parse(sessionStorage.getItem('loginDetails')))
+      .post(`${API_URL}/login`,JSON.parse(sessionStorage.getItem('loginDetails')))
       .then((response) => {
         // console.log(response);
         setLogin(true);
@@ -52,7 +52,7 @@ const Login = ({ login, setLogin }) => {
     e.preventDefault();
     setLoginDetails(userModel);
     axios
-      .post(`${API_URL}/login` || "http://localhost:5000/login", loginDetails)
+      .post(`${API_URL}/login`, loginDetails)
       .then((response) => {
         // console.log(response);
         sessionStorage.setItem(

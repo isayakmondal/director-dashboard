@@ -21,7 +21,7 @@ const Dashboard = ({ login, setLogin }) => {
       history.push("/login");
     } else {
       axios
-        .get(`${API_URL}/getCompany` || "http://localhost:5000/getCompany", {
+        .get(`${API_URL}/getCompany`, {
           headers: {
             "x-access-token": localStorage.getItem("token"),
           },

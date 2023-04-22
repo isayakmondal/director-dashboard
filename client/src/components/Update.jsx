@@ -25,7 +25,7 @@ const Update = (props) => {
 
     // console.log(companyDetails);
     axios
-      .post(`${API_URL}/updateCompany` || "http://localhost:5000/updateCompany", companyDetails, {
+      .post(`${API_URL}/updateCompany`, companyDetails, {
         headers: {
           "x-access-token": localStorage.getItem("token"),
         },
