@@ -1,0 +1,6 @@
+secretGenerator:
+  - name: database-secret
+    envs: 
+      - .env
+generatorOptions:
+  disableNameSuffixHash: true # use a static name

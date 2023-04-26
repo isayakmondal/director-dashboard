@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: company-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: company-client
+  template:
+    metadata:
+      labels:
+        app: company-client
+    spec:
+      containers:
+        - name: company-client
+          image: vampzzz/director-dashboard-client:v25
+          ports:
+            - containerPort: 3000
+          env:
+            - name: REACT_APP_MY_API_URL
+              value: "http://company-server:5000"           
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
