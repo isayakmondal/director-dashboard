@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   server:
-    image: vampzzz/director-dashboard-server:v1
+    image: vampzzz/director-dashboard-server:v23
     env_file:
       - ./server/.env
     ports:
@@ -10,7 +10,7 @@ services:
     restart: always
 
   client:
-    image: vampzzz/director-dashboard-client:v1
+    image: vampzzz/director-dashboard-client:v23
     ports:
       - "3000:3000"
     restart: always
