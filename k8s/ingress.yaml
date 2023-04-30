@@ -10,7 +10,21 @@ spec:
   rules:
   - http:
       paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: company-server
+            port:
+              number: 5000
       - path: /login
+        pathType: Prefix
+        backend:
+          service:
+            name: company-server
+            port:
+              number: 5000
+      - path: /createCompany
         pathType: Prefix
         backend:
           service:
@@ -30,7 +44,7 @@ spec:
           service:
             name: company-server
             port:
-              number: 5000
+              number: 5000        
       - path: /deleteCompany
         pathType: Prefix
         backend:

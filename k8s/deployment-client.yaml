@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
         - name: company-client
-          image: vampzzz/director-dashboard-client:v25
+          image: vampzzz/director-dashboard-client:v27
           ports:
             - containerPort: 3000
           env:
             - name: REACT_APP_MY_API_URL
-              value: "http://company-server:5000"           
+              value: "http://example.dashboard.com"           
           resources:
             requests:
               cpu: 100m
