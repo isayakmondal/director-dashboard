@@ -25,7 +25,7 @@ pipeline {
         stage('Build client image') {
             steps {
                 dir('client') {
-                    sh "docker build -t ${CLIENT_IMAGE_NAME}:${VERSION} --build-arg REACT_APP_MY_API_URL=http://exmaple.dashboard.com ."
+                    sh "docker build -t ${CLIENT_IMAGE_NAME}:${VERSION} --build-arg REACT_APP_MY_API_URL=http://example.dashboard.com ."
                 }
             }
         }
