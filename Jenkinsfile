@@ -57,6 +57,7 @@ pipeline {
                 BUILD_NUMBER=${BUILD_NUMBER}
                 git pull origin dev
                 git checkout dev
+                git merge origin/dev
                 # Update the image in the deployment-client.yaml file
                 sed -i "s|image: vampzzz/director-dashboard-client:v27|image: vampzzz/director-dashboard-client:v${BUILD_NUMBER}|g" ./k8s/deployment-client.yaml
 
