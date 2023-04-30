@@ -44,5 +44,31 @@ pipeline {
                 }
             }
         }
+        stage('Update Deployment File') {
+        environment {
+            GIT_REPO_NAME = "director-dashboard"
+            GIT_USER_NAME = "isayakmondal"
+        }
+        steps {
+            withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+            sh '''
+                git config user.email "isayakmondal@gmail.com"
+                git config user.name "isayakmonddal"
+                BUILD_NUMBER=${BUILD_NUMBER}
+
+                # Update the image in the deployment-client.yaml file
+                sed -i "s|image: vampzzz/director-dashboard-client:v27|image: vampzzz/director-dashboard-client:v${BUILD_NUMBER}|g" ./k8s/deployment-client.yaml
+
+                # Update the image in the deployment-server.yaml file
+                sed -i "s|image: vampzzz/director-dashboard-server:v27|image: vampzzz/director-dashboard-server:v${BUILD_NUMBER}|g" ./k8s/deployment-server.yaml
+
+                # Commit and push the changes
+                git add ./k8s/deployment-client.yaml ./k8s/deployment-server.yaml
+                git commit -m "Update image version to ${BUILD_NUMBER}"
+                git push origin dev
+            '''
+            }
+        }
+    }
     }
 }
