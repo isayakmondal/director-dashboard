@@ -55,7 +55,8 @@ pipeline {
                 git config user.email "isayakmondal@gmail.com"
                 git config user.name "isayakmonddal"
                 BUILD_NUMBER=${BUILD_NUMBER}
-
+                git pull origin dev
+                git checkout dev
                 # Update the image in the deployment-client.yaml file
                 sed -i "s|image: vampzzz/director-dashboard-client:v27|image: vampzzz/director-dashboard-client:v${BUILD_NUMBER}|g" ./k8s/deployment-client.yaml
 
