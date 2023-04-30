@@ -4,3 +4,4 @@ secretGenerator:
       - .env
 generatorOptions:
   disableNameSuffixHash: true # use a static name
+  # To run it -> kustomize build . | kubectl apply -f -

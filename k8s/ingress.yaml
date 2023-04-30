@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: backend-ingress
+  annotations:
+    # nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: nginx
+spec:
+  # ingressClassName: backend-ingress
+  rules:
+  - http:
+      paths:
+      - path: /login
+        pathType: Prefix
+        backend:
+          service:
+            name: company-server
+            port:
+              number: 5000
+      - path: /getCompany
+        pathType: Prefix
+        backend:
+          service:
+            name: company-server
+            port:
+              number: 5000
+      - path: /updateCompany
+        pathType: Prefix
+        backend:
+          service:
+            name: company-server
+            port:
+              number: 5000
+      - path: /deleteCompany
+        pathType: Prefix
+        backend:
+          service:
+            name: company-server
+            port:
+              number: 5000        
