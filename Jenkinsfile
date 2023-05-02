@@ -69,7 +69,8 @@ pipeline {
                 # Commit and push the changes
                 git add ./k8s/deployment-client.yaml ./k8s/deployment-server.yaml
                 git commit -m "Update image version to ${BUILD_NUMBER}"
-                GIT_SSH_COMMAND="ssh -i ${GIT_SSH_KEY}" git push origin dev
+                GIT_SSH_COMMAND="ssh -i ${GIT_SSH_KEY} -o StrictHostKeyChecking=no" git push origin dev
+
             '''
                  }
             }
