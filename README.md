@@ -19,7 +19,7 @@ https://user-images.githubusercontent.com/51121313/232805929-7ff7e8af-f14c-4968-
 
 # Future Plans
 - [x] **Containerization of the app into separate containers**
-- [ ] **Creating a CI Pipeline using Jenkins**
+- [x] **Creating a CI Pipeline using Jenkins**
 - [ ] **Creating CD Pipeline uisng ArgoCD**
 - [ ] **Running them inside K8s clusters in the cloud**
 
