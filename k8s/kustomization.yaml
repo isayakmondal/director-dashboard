@@ -1,7 +1,7 @@
-secretGenerator:
-  - name: database-secret
-    envs: 
-      - .env
-generatorOptions:
-  disableNameSuffixHash: true # use a static name
+# secretGenerator:
+#   - name: database-secret
+#     envs: 
+#       - .env
+# generatorOptions:
+#   disableNameSuffixHash: true # use a static name
   # To run it -> kustomize build . | kubectl apply -f -
