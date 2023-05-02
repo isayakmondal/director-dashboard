@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: company-client
-          image: vampzzz/director-dashboard-client:v27
+          image: vampzzz/director-dashboard-client:v43
           ports:
             - containerPort: 3000
           env:
