@@ -56,7 +56,7 @@ pipeline {
                 git config user.email "isayakmondal@gmail.com"
                 git config user.name "${GIT_USER_NAME}"
                 BUILD_NUMBER=${BUILD_NUMBER}
-                git clone git@github.com:isayakmondal/director-dashboard.git 
+                GIT_SSH_COMMAND="ssh -i ${GIT_SSH_KEY}" git clone git@github.com:isayakmondal/director-dashboard.git
                 cd director-dashboard
                 git checkout dev
                 
