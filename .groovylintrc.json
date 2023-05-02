@@ -1,0 +1,11 @@
+{
+    "extends": "recommended",
+    "rules": {
+        "GStringExpressionWithinString": {
+            "enabled": false
+        },
+        "LineLength": {
+            "enabled": false
+        }
+    }
+}
