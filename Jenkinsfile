@@ -9,11 +9,7 @@ pipeline {
     }
     agent any
 
-   
-	
-    
     stages {
-
         stage('Build server image') {
             steps {
                 dir('server') {
@@ -29,13 +25,10 @@ pipeline {
                 }
             }
         }
-        
 
-        
         stage('Push images to Docker Hub') {
             steps {
                 withCredentials([string(credentialsId: 'docker-hub-token', variable: 'DOCKERHUB_TOKEN')]) {
-
                     sh '''
                      docker login --username $DOCKER_HUB_USERNAME -p $DOCKERHUB_TOKEN
                      docker push ${CLIENT_IMAGE_NAME}:${VERSION}
@@ -45,21 +38,21 @@ pipeline {
             }
         }
         stage('Update Deployment File') {
-    environment {
-        GIT_REPO_NAME = "director-dashboard"
-        GIT_USER_NAME = "isayakmondal"
-        GIT_SSH_KEY = credentials('ssh-key-id')  // SSH key credentials ID
-    }
-    steps {
-        withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key-id', keyFileVariable: 'GIT_SSH_KEY')]) {
-            sh '''
+            environment {
+                GIT_REPO_NAME = 'director-dashboard'
+                GIT_USER_NAME = 'isayakmondal'
+                GIT_SSH_KEY = credentials('ssh-key-id')  // SSH key credentials ID
+            }
+            steps {
+                withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key-id', keyFileVariable: 'GIT_SSH_KEY')]) {
+                    sh '''
                 git config user.email "isayakmondal@gmail.com"
                 git config user.name "${GIT_USER_NAME}"
                 BUILD_NUMBER=${BUILD_NUMBER}
                 GIT_SSH_COMMAND="ssh -i ${GIT_SSH_KEY}" git clone git@github.com:isayakmondal/director-dashboard.git
                 cd director-dashboard
                 git checkout dev
-                
+
                 # Update the image in the deployment-client.yaml file
                 sed -i "s|image: vampzzz/director-dashboard-client:v[0-9]*|image: vampzzz/director-dashboard-client:v${BUILD_NUMBER}|g" ./k8s/deployment-client.yaml
 
@@ -72,7 +65,7 @@ pipeline {
                 GIT_SSH_COMMAND="ssh -i ${GIT_SSH_KEY} -o StrictHostKeyChecking=no" git push origin dev
 
             '''
-                 }
+                }
             }
         }
     }
