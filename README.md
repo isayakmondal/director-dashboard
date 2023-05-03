@@ -15,11 +15,12 @@ Details such as email, [linkedin](https://www.linkedin.com) profile and logo of 
 
 # Working of the Web-App
 
-https://user-images.githubusercontent.com/51121313/232805929-7ff7e8af-f14c-4968-a64b-9847165d3fd0.mp4
+https://user-images.githubusercontent.com/51121313/235850931-ce9f8f2f-6cbc-4a94-a946-51e6e4ffa1b0.mp4
 
 # Future Plans
 - [x] **Containerization of the app into separate containers**
 - [x] **Creating a CI Pipeline using Jenkins**
-- [ ] **Creating CD Pipeline uisng ArgoCD**
-- [ ] **Running them inside K8s clusters in the cloud**
+- [x] **Creating CD Pipeline uisng ArgoCD**
+- [x] **Running them inside K8s clusters in the cloud/minikube**
+- [ ] **Integrate Sonarqube for code quality analysis**
 
